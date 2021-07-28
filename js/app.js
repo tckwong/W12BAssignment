@@ -21,23 +21,23 @@ function postRequest(){
 }
 
 function postSuccess(response) {
+    //Check inputbox for userinput and display appropriate message to user
     if(userPost.value && userPostBody.value != ""){
         console.log(response);
         document.getElementById('success').classList.add('successNotify');
         let myTitle = document.createElement('h3');
         let myData = document.createElement('h4');
-
+        //append new post to end of the list (end of page)
         parent.append(myTitle);
         parent.append(myData);
         myTitle.innerText = response.data.title;
         myData.innerText = response.data.body;
-
+        
         var lastElmnt = parent.lastElementChild;
         lastElmnt.scrollIntoView(true);
     }else {
-        console.log('Please enter required information');
+        document.getElementById('missingInfo').classList.add('missingInfo');
     }
-    
 }
 
 function patchRequest(){
@@ -50,9 +50,9 @@ function patchRequest(){
         data:{
             id : 2,
             title : "NEW TITLE",
-            body : "I JUST UPDATED ID 2'S BODY"
+            body : "I JUST UPDATED POST ID #2"
         }
-    }).then(patchDeleteSuccess).catch(failure);
+    }).then(patchSuccess).catch(failure);
 }
 
 function deleteRequest(){
@@ -65,22 +65,24 @@ function deleteRequest(){
         data:{
             id : 3
         }
-    }).then(patchDeleteSuccess).catch(failure);
+    }).then(deleteSuccess).catch(failure);
 }
 
-function patchDeleteSuccess(response) {
+function patchSuccess(response) {
     console.log(response);
+    console.log("Patch Post Successful");
+}
+
+function deleteSuccess(response) {
+    console.log(response);
+    console.log("Delete Post Successful");
 }
 
 function failure(error) {
     console.error(error);
     document.getElementById('failure').classList.add('failureNotify');
 }
-
-let userSubmitBtn = document.querySelector('button');
-userSubmitBtn.addEventListener('click', postRequest);
-
-//RETRIEVE ALL POSTS
+//RETRIEVE ALL POSTS FUNCTION
 function getRequest(){
     axios.request({
         method : "GET",
@@ -99,10 +101,32 @@ function getSuccess(response) {
         myData.innerText = response.data[i].body;
         parent.append(myData);
     }
-    console.log("Get posts successful!");
+    console.log("Retrieved ALL posts successfully!");
 }
 
+//ADD COMMENTS
+commentsRequest()
+function commentsRequest(){
+    axios.request({
+        method : "GET",
+        url : "https://jsonplaceholder.typicode.com/posts/1/comments",
+    }).then(commentsSuccess).catch(failure);
+}
 
+function commentsSuccess(response){
+    console.log(response)
+    var arr = document.querySelectorAll('h4');
+    
+    for(let i=0; i<5; i++) {
+        let comments = document.createElement('h5');
+        let currSelect = arr[i];
+        currSelect.append(comments);
+        comments.innerHTML = "Comments: "+response.data[i].body;
+        comments.style.color = "blue";
+    }
+}
 
+let userSubmitBtn = document.querySelector('button');
+userSubmitBtn.addEventListener('click', postRequest);
 
 

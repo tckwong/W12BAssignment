@@ -1,8 +1,16 @@
+body {
+    margin: 0 5vw;
+}
+
 .successNotify {
     display: initial;
 }
 
 .failureNotify {
+    display: initial;
+}
+
+.missingInfo {
     display: initial;
 }
 
@@ -31,9 +39,15 @@ h3 {
 
 img {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 2vw;
+    right: 2vw;
     width: 50px;
     scroll-behavior: smooth;
 
+}
+
+#success, #failure, #missingInfo {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: rgb(212, 0, 255);
 }
