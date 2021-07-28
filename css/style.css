@@ -1,0 +1,39 @@
+.successNotify {
+    display: initial;
+}
+
+.failureNotify {
+    display: initial;
+}
+
+div > p {
+    display: none;
+}
+
+button {
+    color: white;
+    margin-top: 20px;
+    background-color: dodgerblue;
+}
+
+h3 {
+    color: firebrick;
+    text-transform: uppercase;
+}
+
+#bodyText {
+    margin-top: 10px;
+    width: 30vw;
+    height: 15vh;
+    display: block;
+
+}
+
+img {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    scroll-behavior: smooth;
+
+}
